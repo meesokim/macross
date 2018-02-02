@@ -12,14 +12,14 @@ MACROSS_OBJECTS = actions_$(PROC).o buildStuff1.o buildStuff2.o		\
                   macrossTables_$(PROC).o main.o object.o		\
                   operandStuffSD_$(PROC).o parserMisc.o			\
                   semanticMisc.o statementSemantics.o			\
-                  structSemantics.o tokenStrings_$(PROC).o y.tab.o
+                  structSemantics.o tokenStrings_$(PROC).o y.tab.o sbrk.o
 
 # Macross is not 64-bit clean and it does a lot of silent downcasting
 # to simulate subclasses and uses int and void * interchangably a
 # bunch. gcc calls these the int-conversion and
 # incompatible-pointer-types warnings.
-CFLAGS=-m32 -O2 -ansi -DYYDEBUG -DTARGET_CPU=CPU_$(PROC)
-LDFLAGS=-m32
+CFLAGS=-m64 -O2 -ansi -DYYDEBUG -DTARGET_CPU=CPU_$(PROC)
+LDFLAGS=-m64
 
 # If yacc is notionally present on a system, it's usually actually
 # bison in a compatibility mode. bison is available by name more often
@@ -28,7 +28,7 @@ YACC=bison -y
 #YACC=yacc
 
 # Pick a compiler if you have one in particular you want.
-CC=cc
+CC=gcc
 #CC=gcc
 #CC=clang
 
